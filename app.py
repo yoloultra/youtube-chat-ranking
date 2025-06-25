@@ -1167,8 +1167,8 @@ if __name__ == '__main__':
     db_thread = threading.Thread(target=db_worker)
     db_thread.daemon = True
     db_thread.start()
-    
-try:
+
+    try:
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
     except:
