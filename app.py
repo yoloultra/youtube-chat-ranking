@@ -968,7 +968,7 @@ WEB_TEMPLATE = '''
             
             const patterns = [
                 /[?&]v=([^&]+)/,
-                /youtu\.be\/([^?]+)/,
+                r'youtu\.be/([^?]+)'
                 /[?&]vi=([^&]+)/,
             ];
             
