@@ -897,18 +897,18 @@ WEB_TEMPLATE = '''
         <div class="controls">
             <div class="input-group">
                 <input type="text" id="videoId" placeholder="YouTube 비디오 ID 또는 URL 입력" />
-                <button class="btn-primary" onclick="startTracking()">▶️ 추적 시작</button>
+                <button class="btn-primary" id="startBtn">▶️ 추적 시작</button>
             </div>
             <div class="help-text">
                 💡 YouTube URL 예시: https://www.youtube.com/watch?v=dQw4w9WgXcQ<br>
                 또는 비디오 ID만: dQw4w9WgXcQ
             </div>
             <div class="input-group" style="margin-top: 15px;">
-                <button class="btn-primary" onclick="authenticate()">🔑 인증</button>
-                <button class="btn-danger" onclick="stopTracking()">⏹️ 추적 중지</button>
-                <button class="btn-info" onclick="refreshRankings()">🔄 새로고침</button>
-                <button class="btn-info" onclick="openPopup()">📊 순위 팝업</button>
-                <button class="btn-warning" onclick="resetDatabase()" style="margin-left: auto;">🗑️ 데이터 리셋</button>
+                <button class="btn-primary" id="authBtn">🔑 인증</button>
+<button class="btn-danger" id="stopBtn">⏹️ 추적 중지</button>
+<button class="btn-info" id="refreshBtn">🔄 새로고침</button>
+<button class="btn-info" id="popupBtn">📊 순위 팝업</button>
+<button class="btn-warning" id="resetBtn" style="margin-left: auto;">🗑️ 데이터 리셋</button>
             </div>
             <div id="messages"></div>
         </div>
@@ -968,7 +968,7 @@ WEB_TEMPLATE = '''
             
             const patterns = [
                 /[?&]v=([^&]+)/,
-                r'youtu.be/([^?]+)'
+                /youtu\.be\/([^?]+)/,
                 /[?&]vi=([^&]+)/,
             ];
             
@@ -1143,14 +1143,22 @@ WEB_TEMPLATE = '''
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            refreshRankings();
-            
-            document.getElementById('videoId').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    startTracking();
-                }
-            });
-        });
+    refreshRankings();
+    
+    // 버튼 이벤트 리스너 추가
+    document.getElementById('authBtn').addEventListener('click', authenticate);
+    document.getElementById('startBtn').addEventListener('click', startTracking);
+    document.getElementById('stopBtn').addEventListener('click', stopTracking);
+    document.getElementById('refreshBtn').addEventListener('click', refreshRankings);
+    document.getElementById('popupBtn').addEventListener('click', openPopup);
+    document.getElementById('resetBtn').addEventListener('click', resetDatabase);
+    
+    document.getElementById('videoId').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            startTracking();
+        }
+    });
+});
     </script>
 </body>
 </html>
@@ -1167,7 +1175,7 @@ if __name__ == '__main__':
     db_thread = threading.Thread(target=db_worker)
     db_thread.daemon = True
     db_thread.start()
-
+    
     try:
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
@@ -1197,9 +1205,10 @@ if __name__ == '__main__':
     print()
     print("⏹️  종료: Ctrl+C")
     print("=" * 60)
-try:    # ✅ 공백 4개 (위의 print와 같은 레벨)
-        port = int(os.environ.get('PORT', 5000))
-        app.run(debug=False, host='0.0.0.0', port=port, threaded=True)
+    
+try:
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port, threaded=True)
 except KeyboardInterrupt:
         print("\n\n👋 프로그램을 종료합니다.")
         is_tracking = False
