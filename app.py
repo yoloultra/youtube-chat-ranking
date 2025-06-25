@@ -1105,9 +1105,11 @@ WEB_TEMPLATE = '''
                 let rankClass = '';
                 let rankEmoji = '';
                 
-                if (index === 0) { rankClass = 'gold'; rankEmoji = '🥇'; }
-                else if (index === 1) { rankClass = 'silver'; rankEmoji = '🥈'; }
-                else if (index === 2) { rankClass = 'bronze'; rankEmoji = '🥉'; }
+                if (index === 0) { rankClass = 'gold'; rankEmoji = '👑'; }
+                else if (index === 1) { rankClass = 'silver'; rankEmoji = '🏆'; }
+                else if (index === 2) { rankClass = 'bronze'; rankEmoji = '🎖️'; }
+                else if (index === 3) { rankEmoji = '💎'; }  
+                else if (index === 4) { rankEmoji = '💎'; }  
                 else { rankEmoji = `${user.rank}위`; }
                 
                 html += `
