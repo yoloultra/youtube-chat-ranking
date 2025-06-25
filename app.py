@@ -1168,7 +1168,7 @@ if __name__ == '__main__':
     db_thread.daemon = True
     db_thread.start()
     
-       try:
+try:
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
     except:
@@ -1197,7 +1197,7 @@ if __name__ == '__main__':
     print()
     print("⏹️  종료: Ctrl+C")
     print("=" * 60)
-    try:    # ✅ 공백 4개 (위의 print와 같은 레벨)
+try:    # ✅ 공백 4개 (위의 print와 같은 레벨)
         port = int(os.environ.get('PORT', 5000))
         app.run(debug=False, host='0.0.0.0', port=port, threaded=True)
     except KeyboardInterrupt:
