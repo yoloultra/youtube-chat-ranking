@@ -727,9 +727,11 @@ POPUP_TEMPLATE = '''
                 let rankClass = '';
                 let rankEmoji = '';
                 
-                if (index === 0) { rankClass = 'gold'; rankEmoji = '🥇'; }
-                else if (index === 1) { rankClass = 'silver'; rankEmoji = '🥈'; }
-                else if (index === 2) { rankClass = 'bronze'; rankEmoji = '🥉'; }
+                if (index === 0) { rankClass = 'gold'; rankEmoji = '👑'; }
+                else if (index === 1) { rankClass = 'silver'; rankEmoji = '🏆'; }
+                else if (index === 2) { rankClass = 'bronze'; rankEmoji = '🎖️'; }
+                else if (index === 3) { rankClass = 'other'; rankEmoji = '💎'; }
+                else if (index === 4) { rankClass = 'other'; rankEmoji = '💠'; }  
                 else { rankClass = 'other'; rankEmoji = `${user.rank}`; }
                 
                 html += `
