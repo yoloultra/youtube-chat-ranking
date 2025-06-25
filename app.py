@@ -968,7 +968,7 @@ WEB_TEMPLATE = '''
             
             const patterns = [
                 /[?&]v=([^&]+)/,
-                r'youtu\.be/([^?]+)'
+                r'youtu.be/([^?]+)'
                 /[?&]vi=([^&]+)/,
             ];
             
@@ -1168,7 +1168,7 @@ if __name__ == '__main__':
     db_thread.daemon = True
     db_thread.start()
     
-    try:
+       try:
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
     except:
@@ -1197,11 +1197,10 @@ if __name__ == '__main__':
     print()
     print("⏹️  종료: Ctrl+C")
     print("=" * 60)
-    
- try:
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=False, host='0.0.0.0', port=port, threaded=True)
-except KeyboardInterrupt:
+    try:    # ✅ 공백 4개 (위의 print와 같은 레벨)
+        port = int(os.environ.get('PORT', 5000))
+        app.run(debug=False, host='0.0.0.0', port=port, threaded=True)
+    except KeyboardInterrupt:
         print("\n\n👋 프로그램을 종료합니다.")
         is_tracking = False
         message_queue.put(None)
